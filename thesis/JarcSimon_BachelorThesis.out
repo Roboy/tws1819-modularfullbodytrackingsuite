@@ -1,0 +1,18 @@
+\BOOKMARK [0][-]{chapter.1}{Introduction with Motivation}{}% 1
+\BOOKMARK [0][-]{chapter.2}{Theoretical Background}{}% 2
+\BOOKMARK [1][-]{section.2.1}{Linear Feedback Shift Register}{chapter.2}% 3
+\BOOKMARK [1][-]{section.2.2}{Telecommunication Channel}{chapter.2}% 4
+\BOOKMARK [1][-]{section.2.3}{ASIC from Triad Semiconductor TS4231}{chapter.2}% 5
+\BOOKMARK [0][-]{chapter.3}{System Design}{}% 6
+\BOOKMARK [1][-]{section.3.1}{GitHub Discussions}{chapter.3}% 7
+\BOOKMARK [1][-]{section.3.2}{Photodiode}{chapter.3}% 8
+\BOOKMARK [1][-]{section.3.3}{Arduino MKR Vidor 4000}{chapter.3}% 9
+\BOOKMARK [0][-]{chapter.4}{Implementation}{}% 10
+\BOOKMARK [1][-]{section.4.1}{Measurement of laser signals}{chapter.4}% 11
+\BOOKMARK [1][-]{section.4.2}{Real-Time FPGA Detection}{chapter.4}% 12
+\BOOKMARK [1][-]{section.4.3}{PCB Design}{chapter.4}% 13
+\BOOKMARK [0][-]{chapter.5}{Results - split observation and interpretation}{}% 14
+\BOOKMARK [0][-]{chapter.6}{Discussion}{}% 15
+\BOOKMARK [0][-]{chapter.7}{Summary}{}% 16
+\BOOKMARK [0][-]{chapter.7}{List of Figures}{}% 17
+\BOOKMARK [0][-]{chapter*.2}{Bibliography}{}% 18

@@ -1,0 +1,416 @@
+\documentclass[a4paper,twoside, openright,12pt]{report}
+\usepackage{psfrag,amsbsy,graphics,float}
+\usepackage{graphicx, color} %Deleted [dvips] in front of {graphicx, color} for usage also with PDFLaTex
+\usepackage[latin1]{inputenc}
+\usepackage{verbatim}
+\usepackage{amsmath}
+
+% based on the LSR Student Template, last change: 2014-06-05
+
+
+%_______Kopf- und Fußzeile_______________________________________________________
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+%um Kopf- und Fußzeile bei chapter-Seiten zu reaktivieren
+\newcommand{\helv}{%
+   \fontfamily{phv}\fontseries{a}\fontsize{9}{11}\selectfont}
+\fancypagestyle{plain}{
+	\fancyfoot{}% keine Fußzeile
+	\fancyhead[RE]{\helv\leftmark}% Rechts auf geraden Seiten=innen; in \leftmark stehen \chapters
+	\fancyhead[LO]{\helv\rightmark}% Links auf ungeraden Seiten=außen;in \rightmark stehen \sections
+	\fancyhead[RO,LE]{\thepage}}%Rechts auf ungeraden und links auf geraden Seiten
+%Kopf- und Fußzeile für alle anderen Seiten
+\fancyfoot{}
+\fancyhead[RE]{\helv\leftmark}
+\fancyhead[LO]{\helv\rightmark}%alt:\fancyhead[LO]{\itshape\rightmark}
+\fancyhead[RO,LE]{\thepage}
+%________________________________________________________________________________
+
+%_Definieren der Ränder und Längen_______________________________________________
+\setlength{\textwidth}{15cm}
+\setlength{\textheight}{22cm}
+\setlength{\evensidemargin}{-2mm}
+\setlength{\oddsidemargin}{11mm}
+\setlength{\headwidth}{15cm}
+\setlength{\topmargin}{10mm}
+\setlength{\parindent}{0pt} % Kein Einrücken beim Absatz!!
+%________________________________________________________________________________
+
+%_Hyperref for CC Url____________________________________________________________
+\usepackage{hyperref}
+%________________________________________________________________________________
+
+
+%_______Title Page_______________________________________________________________
+\begin{document}
+\pagestyle{empty}
+\enlargethispage{4.5cm} %Damit das Titelbild weit genug unten ist!
+\begin{center}
+\phantom{u}
+\vspace{0.5cm}
+\Huge{\sc Modular Full-Body Tracking Suite}\\
+\vspace{1.5cm}
+		\large{
+			BACHELOR THESIS\\%i.e. DIPLOMA THESIS, BACHELOR THESIS, ADVANCED SEMINAR,
+			%Intermediate Report\\
+			\vspace{0.4cm}
+			submitted by\\
+			Simon Jarc\\
+			% if this is a diploma/bachelor/master thesis include the following:
+			\vspace{0.5cm}
+			born on: 21.07.1995\\
+			\vspace{0.5cm}
+			Wirtsberg 5 \\
+			85777 Kammerberg \\
+			Tel.: 08137\,809638 \\
+			\vspace{1.5cm}
+			MENSCH-MASCHINE-KOMMUNIKATION\\
+			Technische Universit\"at M\"unchen\\
+			\vspace{0.3cm}
+			Univ.-Prof. Dr.-Ing. habil. Gerhard Rigoll\\
+		}
+\end{center}
+\vspace{5.5cm}
+\begin{tabular}{ll}
+Supervisor: & Alona Kharchenko, M.Sc.  \\
+% add the start and intermediate report dates for DA/BA/MA thesis
+Start: & 17.12.2018  \\
+%Intermediate Report: &  xx.xx.201x  \\
+Final Submission: &  03.05.2019 \\
+\end{tabular}
+%________________________________________________________________________________
+
+\newpage
+% \cleardoublepage
+
+
+\phantom{u}
+\phantom{1}\vspace{6cm}
+% \begin{center}
+% In your final hardback copy, replace this page with the signed exercise sheet.
+% \end{center}
+
+% \newpage
+
+
+%_______Abstract__________________________________________________________________
+\topmargin5mm
+\textheight220mm
+\pagenumbering{arabic}
+\phantom{u}
+\begin{abstract}
+This thesis tries to develop a Tracking Suite based on SteamVR Tracking BaseStation 2.0. The functionality of BaseStation 2.0 is described. Linear Feedback Shift Registers are important and are described. To perform the detection successfully, the approach with Configurable Linear Feedback Shift Registers is introduced. Based on this approach, a solution algorithm for the detetion of bitstreams based on an FPGA architecture is described. The difficulties in the course of the project are explained and other possibilites are considerd.
+\end{abstract}
+%________________________________________________________________________________
+
+\newpage
+
+%_______Widmung__________________________________________________________________
+\phantom{u}
+\phantom{1}\vspace{6cm}
+\begin{center}
+%Hier die Widmung oder leer lassen
+Thank You to all. Especially to all Roboyans. \\
+Pleased to meet you, Roboy. \\
+Thank You Mama, Papa and Vanesa for support in all imaginable situations. \\
+Special Thanks to Felix and Johannes. You have motivated and pushed me until the end.
+\end{center}
+%________________________________________________________________________________
+
+
+
+\pagestyle{fancy}
+
+%_________Inhaltsverzeichnis_____________________________________________________
+\tableofcontents
+%________________________________________________________________________________
+
+
+%_________Einleitung_____________________________________________________________
+\chapter{Introduction with Motivation}
+\label{Chapter_Inroduction}
+The main idea behind this system is to record human motion. Roboy, like humans, consists of muscles and tendons. In this case the motors take on the task of the muscles. As the robot cannot be supplied data by unlimited sensors, the motors must be controlled specifically. This does not happen as naturally as humans. In order to improve this, we want to record human movements. For this a component of SteamVR Tracking is used, more exactly the newer SteamVR Tracking 2.0. In the following this is called Lighthouse 2. With this partial adaption, human movements should be recorded as precisely as possible. For the future these images are to be made usable for Roboy with the help of artificial intelligence. \\
+The Lighthouse 2 is installed at a fixed position in the room and then the room is traversed by a laser in two axes. This laser is highly modulated so that a bistream is sent. This is now received with a module and a photodiode on it. By receiving the bitsream, the position in room can be determined in relation to Lighthouse 2. \\
+For this project the Lighthouse 2 must be reengineerd, because of the lack of official documentation about the technical functionality. \\
+For this purpose, chapter \ref{Chapter_Background} will first create the basics to be able to understand a later discussion. Chapter \ref{Chapter_System-Design} and \ref{Chapter_Implementation} describe design and implementation in development. Chapter \ref{Chapter_Results} and \ref{Chapter_Discussion} summarize all events in the process of development. A special focus here is on problems arising during development. Chapter \ref{Chapter_Summary} forms the conclusion.
+%________________________________________________________________________________
+
+
+%_________Theoretische Grundlage_________________________________________________
+\chapter{Theoretical Background}
+\label{Chapter_Background}
+This chapter gives a brief overview of the most important underlying technologies and products. Each section can be considered separately.
+
+\section{Linear Feedback Shift Register}
+\label{Section_LFSR}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width = 15 cm]{_Figures/Figure01-LFSR_Schematic.jpg}
+\caption{A Schematic of a Linear Feedback Shift Register \cite{Paar.2016}}
+\label{Schematic_LFSR}
+\end{center}
+\end{figure}
+
+Using a register is the easiest way to store one bit in digital form, often used in microcontrollers. However, the exact internal structure will not be considered here, since the simple mode of operation and rather the mathematical description is more important in this section. In order to store a number of bits, the same number of registers are  used and connected according to the application. \\
+We want to concentrate on a Linear Feedback Shift Register, which is structered in the following:
+\begin{enumerate}
+\item Take $m$ registers and connect the input from step $i-1$ to the output from step $i$.
+\item Connect a clock to all registers so that all registers are synchronized with each other. Now with each clock cycle the data bit is moved one step further. With this wiring we buildt a shift register, which pushes out bits sequantially at its output. This means that a bit at the input is only available after $m$ steps at the ouput.
+\item To get a Linear Feedback Shift Register we first clarify the concept of feedback. Feedback describes the process of feeding a signal to the output and back to a previous stage. In this context, linear feedback means that the signal is tapped and fed back only once. \\
+For a Linear Feedback Shift Register, the output from stage $j$ must be routed to input register $s_m$. If several steps are fed back, they are all exclusivley ored together. Figure \ref{Schematic_LFSR} shows the basic structure of such a Linear Feedback Shift Register.
+\end{enumerate}
+Next, it is useful to take a closer look at the mathematical description. For this we also use the nomenclature of figure \ref{Schematic_LFSR}, corresponding to \cite{Paar.2016}. \\
+The feedback is described by the coefficients $p_j\in{0,1}$ and the register stages by $s_0, s_1 ... s_{m-1}$. We are most interested in the output bits $s_0, s_1 ... s_i$, which can generally be expressed as follows:
+\begin{equation}
+s_{m+i} \equiv \sum_{j=0}^{m-1} p_j \cdot s_{i+j} \bmod 2
+\label{LFSR-equation}
+\end{equation}
+with $s_i,p_j\in{0,1}$ and $i=0,1,2,...,m$. The maximum length possible combinations depends on the degree $m$ and can be described by equation \ref{LFSR-max-length}. 
+\begin{equation}
+2^m-1
+\label{LFSR-max-length}
+\end{equation}
+With the feedback coefficients known to us, we can now express a known Linear Feedback Shift Register as a polynomial:
+\begin{equation}
+P(x) = x^m + p_{m-1}x^{m-1}+...+p_1x+p_0.
+\label{LFSR-polynom}
+\end{equation}
+It should be noted that only primitive polynomials can generate the maximum length of sequence. Other polynomials that are not based on these do not reach the maximum length according to equation \ref{LFSR-max-length}.\\
+It is also useful to know how to calculate the feedback of unknown Linear Feedback Shift Registers. For this, $2m$ output bits are needed and with equation \ref{LFSR-equation} they can be presented in the following:
+\begin{eqnarray}
+i = 0, & s_m &\equiv p_{m-1}s_{m-1}+...+p_1s_1 + p_0s_0 \nonumber \\
+i = 1, & s_m+1 &\equiv p_{m-1}s_{m}+...+p_1s_2 + p_0s_1 \nonumber \\
+. & . \nonumber \\
+. & . \nonumber \\
+. & . \nonumber \\
+i = m, & s_{2m-1} &\equiv p_{m-1}s_{2m-2}+...+p_1s_m + p_0s_{m-1} \nonumber
+\end{eqnarray}
+Since we know $2m$ output bits and have represented them as linear equations, we can easily calculate them, for example with the Gaussian Elimination method. \cite{Tietze.2016} \cite{Paar.2016} \cite{Mishra.2016031120160312}
+
+
+\section{Telecommunication Channel}
+\label{Section_Telecommunication-Channel}
+The transmission of messages can be illustrated very well with figure \ref{Communication-Link}.
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width = 15 cm]{_Figures/Figure02-Communication_Link.jpg}
+\caption{Communication Link \cite{Hagenauer.20170420}}
+\label{Communication-Link}
+\end{center}
+\end{figure} \\
+The most important point to mention here is the channel coding. This consists roughly of three areas:
+\begin{itemize}
+\item Cryptography: The message to be transmitted is encrypted.
+\item Source Coding: The message to be transmitted is compressed.
+\item Channel Coding: Increase tolerance against wrong transmitted message.
+\end{itemize} \cite{Bossert.2013}.
+This methods are applied in any digital communication. The transmitter carries out these tasks and trasmits its message to the participant. The receiver there must process it again in a reverse order. The receiver knows the instructions for reading the message. \cite{Hagenauer.20170420} \cite{Bossert.2013}
+
+
+\section{ASIC from Triad Semiconductor TS4231}
+\label{Section_TS4231}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width = 15 cm]{_Figures/Figure03-TS4231_Simplified_Circuit_Diagram.png}
+\caption{Simplified Circuit Schematic of TS4231 \cite{TriadSemiconductor.2016b}}
+\label{Schematic_TS4231}
+\end{center}
+\end{figure}
+
+The TS4231 from Triad Semiconductor is an Application Specific Integrated Circiut (ASIC) designed to detect laser signals and transmit them in digital form. For this purpose a photodiode is required which is sensitive on the laser light and and passed on in the form of currents. This signal is then converted using a transimpedance amplifier and processed, so that digital voltage signals can be further processed at the pins $E/CFGCLK$ and $D/CFGDATA$ of the ASIC \cite{TriadSemiconductor.2016b}. \\
+In order to use this ASIC, it must be designed into a circuit board. Figure \ref{Schematic_TS4231} shows the ASIC and how it can be equipped to components to the circuit. Particular attentation must be paid to the layers of the board, due to the fact that mixed-signal circuits are very sensitive against electromagnetic fields, described in \cite{TriadSemiconductor.2016}. \\
+In addition, Triad Semiconductors provides a sample configuration of the ASIC for Arduino. \cite{TriadSemiconductor.2016} This can be used for initial tests and trials.
+%________________________________________________________________________________
+
+
+%_____Design_____________________________________________________________________
+\chapter{System Design}
+\label{Chapter_System-Design}
+This chapter describes how the system is designed. The main focus is on decoding the signals from the Lighthouse 2. For this purpose, the Ligthhouse sends modulated laser signals, with which the current position can be determined during receiving. \\
+Section \ref{Section_GitHub-Discussion} forms the basis for the argumentation and is considered first. It is very important to mention that this discussion was not conducted under any scientific aspect. Unfortunately, there is no official documentation of the manufacturer about the construction of the bitstream and the exact functionality of the Lighthouse, which makes this discussion the only point of argumentation.
+
+\section{GitHub Discussions}
+\label{Section_GitHub-Discussion}
+In the first discussion, the laser signal is coming from the Lighthouse 2 was captured and visualized with the help of a measuring device. The device \cite{CypressSemiconductorCorporation.20190428} with a photodiode was used. Unfortunately it does not show which diode it was. The next step was to display the received bits. It was recognized that this is an Linear Feedback Shift Register consisting of 20 steps. For the analysis of the feedback the Berlekamp-Massey algorithm was used. Per Lighthouse 2 two different feedback coeficients are used. Furthermore, two different speeds of bitstreams are transmitted. A fast stream with $0.0833\mu sec$ per bit for sequences of the Linear Feedback Shift Register and a slow bitstream for sequences of control. \cite{.} \\
+The second discussion tries to decode the slow bitstream. The "Device SN" (on the back of each device), "ootx.nonce" and a "CRC32" were analyzed. That are three blocks of bits that have been analzed. In between are unknown bits. \cite{.b} \\
+In a further discussion, an attempt is made to develope an algorithm for decoding the bitstream from these two results. The feedback is used to try to transfer the bistream to the next bit. Parallel to that, a counter with 20 digits is incremented and if successful, the found bitstream is returned. \cite{.c} It has been tried to apply the principle of a quantizer, where a tradeoff was made between power and performance by using a parity table. \cite{Hagenauer.20170420} \\
+It is very important to mention that reasonable and useful results were only achieved after the deliberate destruction of the Lighthouse 2 case with a soldering iron. The bitstreams of the laser signal were measured with the help of an oscilloscope and then evaluated again as described before. \cite{.e}
+
+
+\section{Photodiode}
+\label{Section_Photodiode}
+Triad Semiconductors proposes in \cite{TriadSemiconductor.2016} to use the $BPW34S$ as photodiode. This is a PIN photodiode. In general, PIN diodes have very good high frequency characteristics. So they can be used as high frequency switches to receive a fast bistream like here. The $BPW34S$ is very sensitive in the visible and infrared spectrum. \cite{VishayIntertechnology.2017} \cite{Tietze.2016} \\
+
+
+\section{Arduino MKR Vidor 4000}
+\label{Section_Arduino}
+Arduino offers with the MKR Vidor 4000 a very small and powerful SoC. It is equipped with an Intel Cyclone 10CL016 as a Field Programmable Gate Array and Microchip ATSAMD21 as a microcontroller. The board offers 22 digital I/O pins to connect the TS4231. The FPGA is equipped with 15.408 logic elements and is programmed with Intel Quartus Prime Lite Edition. \\
+The Arduino is designed so that it can be used as a module with the sensors. The evaluation of the received bits should be implemented with the FPGA. The calculations of the current position can be done either by the microcontroller or externally. \cite{.e} \cite{IntelCorporation.} \cite{IntelCorporation.2017} \cite{MicrochipTechnologyInc..2018}
+%________________________________________________________________________________
+
+
+%_____Umsetzung__________________________________________________________________
+\chapter{Implementation}
+\label{Chapter_Implementation}
+In order to use the Lighthouse 2 as a component in a closed system, it has to be analyzed. The first step is to receive, measure and evaluate the bitstream from the laser of the Lighthouse, see section \ref{Lighthouse_inside}. The goal is to design an new hardware with the help of an FPGA from the measurements and evaluation. In the final step, a Printed Circuit Board (PCB) design is created to meet the individual requirements.
+
+\section{Measurement of laser signals}
+\label{Section_Measurement}
+
+\label{Signal_Measurement}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width = 15 cm]{_Figures/Figure04_1-Internal_Lighthouse.jpg}
+\caption{A picture of the inside of the Lighthouse after the destruction of the front \cite{.b}}
+\label{Lighthouse_inside}
+\end{center}
+\end{figure}
+
+To design a decoder for the bitstream based on streams from the Lighthouse 2, it must first be recorded and then evaluated. For the measurement of the bistreams, the procedure was almost the same as for physical measurement experiments in general. Figure \ref{Test_Arrangement} shows the test setup used. \\
+A painter tape was used to determine a distance of $2.5 meters$ between the Photodiode and the Lighthouse.The existing PCB module with the TS4231 and the suggested diode \cite{TriadSemiconductor.2016} was used as the sensor. In order to record now also different positions the sensor was not changed in the position, but the Lighthouse was turned on its axis. In addition the Lighthouse 2 stood once in front of the photodiode and in each case $\pm 45^\circ$. Figure \ref{Test_Arrangement} shows the Lighthouse in its orientation.
+\begin{figure}
+\begin{center}
+\includegraphics[width = 15 cm, angle = -90]{_Figures/Figure04_2_Test_Arrangement.jpg}
+\caption{A picture of the test arrangment}
+\label{Test_Arrangement}
+\end{center}
+\end{figure}
+So that the TS4231 can be used, it must be programmed with the demo software at the beginning. For this an Arduino MKR Vidor 4000 was used and programmed with a freely availabe sample configuration provided by Triad Semiconductor \cite{Seibel.}. The signal was then picked up at the $D/CFGDATA$ pin with an oscilloscope. An oscilloscope of the type SIGLENT SDS1204X-E was used. The trigger was set as follows:
+\begin{itemize}
+\item Type: Pattern
+\item Source: K1
+\item Logic1: $3.30V$
+\item Logic: AND
+\item Time: $2.20ns$
+\item Minimum blocking time
+\end{itemize}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width = 15 cm]{_Figures/Figure04_3-Lighthouse10L.jpg}
+\caption{Screenshot on the oscilloscope}
+\label{Screenshot_Oscilloscope}
+\end{center}
+\end{figure}
+The next step is the recording of measurement data. The Oscilloscope also offers the possibility to transfer data via a USB interface. With this interface and a USB stick screenshots can be taken as shown in Figure \ref{Screenshot_Oscilloscope}. It is also possible to record a dat-file and then read it into Matlab. Thus the furter evaluation of the measurement data takes place in Matlab. \\
+The goal is to set up equation \ref{LFSR-polynom}. The maximum length is known from section \ref{Section_GitHub-Discussion}. So with the help of equation \ref{LFSR-equation} a linear equation system of the 20th order is set up. This is now solved with the Gauss elimination method and as a result we get a polynomial. \\
+Unfortunately, at no time was it possible to solve the linear system of equations with the existing methods. Matlab issues a warning with the following information: "Matrix is singular to working precision." This means that the matrix is not invertible and there is no unique solution for Gauss elimination. The result is written to the txt-file as "NaN", which means as much as "Not a Number." There were also no other measuring instruments available to check the counter. An experiment with the DSLogic Plus \cite{.f} also failed because the TS4231 is sensitive to measuring devices. \cite{TriadSemiconductor.2016} In section \ref{Section_GitHub-Discussion} other possible brutal solutions are discussed in more detail.
+
+\section{Real-Time FPGA Detection}
+\label{Section_FPGA}
+The main idea of using an FPGA is to be able to program an individual logic. The goal is to rebuild the hardware of the Lighthouse in reverse order to decode the signal. \\
+With regards to the discussion in section \ref{Section_GitHub-Discussion}, the main focus is on Linear Feedback Shift Registers. Since each Lighthouse has its own feedback coefficients, a Configurable Linear Feedback Shift Register must be programmed, as described in \cite{Mishra.2016031120160312}. For this, all possible coefficients and initial value must be known and stored. During the first signal acquisition, the coefficient pairs can now be determined and stored as known. These coefficients represent the ID of each Lighthouse. In the next incoming bitstream only the coefficinets have to be used to check which Linear Feedback Shift Register configuration is involved and thus the transmitted Lighthouse 2 can be accessed. For this purpose figure \ref{Streaming_Procedure} describes a possible program sequence.
+\begin{figure}[h]
+\begin{center}
+\includegraphics[height = 15 cm]{_Figures/Figure04_4-streaming_procedure.jpg}
+\caption{An algorithm for position determination}
+\label{Streaming_Procedure}
+\end{center}
+\end{figure} \\
+Since the bitstreams unfortunalety come sequentially, they have to be buffered in a buffer. For this the first bit is taken and noted. With the next 19 bits, this bit sequence is XORed bit by bit with a possible coefficient. If the result matches the next bit from the buffer, the same is done with the next 19 bits. At the same time, a counter is running. The counter counts up by one if the next bit matches with the calculation. On the contrary, the counter is reset to zero. If successful, the detected sequence is transferred to the next module. The check check can continue with 20 digits after the noted position from the buffer. In case of failure, the sequence must be started from the beginning. Important here: If a failure occurs somewhere in the bitstream, it must not be started with the next bit. The next bit follows from the position noted. Now this bit is taken and the check starts from the beginning until a success occurs. \\
+In the next module the distance between the detected sequence and the start sequence of the Linear Feedback Shift Register is determined. The start sequence is taken and XORed bitwise with the coefficient. Here, a counter $i$ is also used to count up until the detected sequence has been successfully reached. With the result from the counter and with the knowledge from the Linear Feedback Shift Register frequency, the position of the lighthouse can now be calculated as follows: 
+\begin{equation}
+s = v \cdot \frac{i}{f}
+\end{equation}
+where $s$ stands for the distance in the room, $v$ for the speed of the rotor, $i$ for the previously calculated distance and $f$ for the frequency of the LFSR. With regard to real-time application, time constraints should not be a problem. With reference to source \cite{Mishra.2016031120160312}, a small sample calculation is performed here. According to equation \ref{LFSR-max-length}, the maximum length of possible bit sequences is known: \[2^{20}-1 = 1.048.575.\]
+The discussion in section \ref{Section_GitHub-Discussion} shows that a bit from Linear Feedback Shift Register needs $0.0833\mu sec$. Thus it takes a maximum \[t = 0.0833\mu sec \cdot 1.048.575 = 87.34\mu sec\] until the maximum length of the sequences is calculated. Since this is the maximum time and a sequence is detected earlier in most cases, this can be seen as an upper limit. Furthermore it can be assumed that with $87.34\mu sec = 0.00008734 sec$ a simple Real-Time condition is present. \\
+In summary, a Real-Time FPGA decoder for determining the position can be realized with all these findings. When designing an FPGA, it should be considered that this is always done in well thought-out and structured modules \cite{Wakerly.2006}.
+
+
+\section{PCB Design}
+\label{Section_PCB}
+The PCB Design is done according to the requirements. First, all necessary components have to be accommodated. The Arduino MKR Vidor 4000 is the largest basic component and the rest adapts to the conditions. The next module to be accomodated is the TS4231 with the photodiode. There are two things which must be considered: First, the photodiode must have a free field of view in order to receive the laser signals successfully. Secondly, the wiring must be observed. Poor design of the layers and unfortunate connections can lead to electromagnetic interference resonances. In particular, the TS4231 must be observed and the design guidelines \cite{TriadSemiconductor.2016} followed.
+%________________________________________________________________________________
+
+
+%_____Ergebnisse_________________________________________________________________
+\chapter{Results - split observation and interpretation}
+\label{Chapter_Results}
+As mentioned in section \ref{Signal_Measurement}, the measurement data could not be successfully evaluated. There were two Lighthouses 2 available and each time three positions were measured. Thus a total of six different measurement series were recorded under the same critical condition. In addition, one Lighthouse 2 was measured under switched-on light conditions. These results were also not successful. For all measurement series the Gauss elimination was calculated without success (more detailed explanation in section \ref{Signal_Measurement}).
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width = 15 cm]{_Figures/Figure05_1-plotLighthouse11.jpg}
+\caption{Lighthouse 1 in Position 1: a plot of the dat-file in Matlab}
+\label{plotLigthhouse11}
+\end{center}
+\end{figure}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width = 15 cm]{_Figures/Figure05_2-plotLighthouse11L.jpg}
+\caption{Lighthouse 1 in Position 1 with Light switched-on: a plot of the dat-file in Matlab}
+\label{plotLighthouse11L}
+\end{center}
+\end{figure}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width = 15 cm]{_Figures/Figure05_3-plotLighthouse21.jpg}
+\caption{Lighthouse 2 in Position 1: a plot of the dat-file in Matlab}
+\label{Lighthouse21}
+\end{center}
+\end{figure}
+Figures \ref{plotLigthhouse11} to \ref{Lighthouse21} show measurement peaks belonging to the digital signal level of the TS4231, but a connection like in the discussion \ref{Section_GitHub-Discussion} could not be found. Since there is no official documentation from the manufacturer, this was the only source of information with which ideas could be collected and tested.\\
+During the test recordings, the proposal to measure different positions also came up. The aim was not only to have one measurement series from one position, but several measurement series. Systematic errors were also avoided. \\
+An attempt was also made to evaluate the materials available from the section \ref{Section_GitHub-Discussion}. The figure \ref{Screenshot} does not show any useful information either. Therefore it could not be checked which differences existed. \\
+Another attempt to write down the housing and to measure the signals directly from the laser was not possible. Unfortunately it is only possible to write on one side of the case, but not to remove the PCB. In order to get to the board with all components, the Lighthouse 2 has to be destroyed as shown in this video \cite{.d}. There is also the question of further use of the device. Thus this possibility was not considered early on.
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width = 15 cm]{_Figures/Figure05_4-Screenshot.png}
+\caption{Evaluation of the provided dat-file from discussion \ref{Section_GitHub-Discussion}}
+\label{Screenshot}
+\end{center}
+\end{figure}
+%________________________________________________________________________________
+
+
+%_____Diskussion_________________________________________________________________
+\chapter{Discussion}
+\label{Chapter_Discussion}
+To prevent a completely new development for the Tracking Suite, it is possible to adopt the needed equipment on available products on the market.
+
+In order not to have to take responsibility for entire developments, already used systems can be adopted on the market. The Lighthouse 2 was intended to provide a valuable basis for a tracking suite. It is a well thought-out concept that can be used successfully. With the development of a decoder the Lighthouse 2 would have been usable. \\
+Unfortunately, the Lighthouse 2 is not an in-house development, but a partial use. This has the disadvantage that future software updates from the manufacturer can lead to major changes. So the functionality of the coder depends on the comming features. The manufacturer Valve invited to a press conference on 1.5.19 to talk about changes \cite{.2019}. Due to such small changes, there is always a residual risk that the Tracking Suite will have to be adapted to future market developments. \\
+A risk assessment must be considered after every success and especially after every failure. In the process of the developement it had to be decided whether the housing of the Lighthouse should be irreversibly damaged in order to decode the signal of the laser or not. It does not make sense to be able to decode the signal and then not be able to use the Lighthouse anymore. With the reverse engineering valuable time should be saved and thus a faster use of the system should be pursued. \\
+In order to develop a decoder, it is necessary to analyse the corresponding remote station in detail. If the function of the opposite side is not known, no signal can be successfully decoded. This makes it so difficult to use a Lighthouse 2 in its own environment.
+%________________________________________________________________________________
+
+
+%_____Zusammenfassung____________________________________________________________
+\chapter{Summary}
+\label{Chapter_Summary}
+The Lighthouse 2 is a very interesting device. Especially since the use of lasers brings great advantages in precision and is trend-setting. However, the laser signals could not be decoded. Decoding without determining the coded signal proves to be extremely difficult. Due to lack of documentation from the manufacturer and no other suitable possibilities for measuring the bitstream, this was not possible. \\
+In addition, a Roboyan will probably develop a better system. This makes it obsolete to have two applications with the same functionality. In most cases it rarely makes sense to own and use two different systems at the same time. \\
+%________________________________________________________________________________
+
+
+%_____Abbildungsverzeichnis______________________________________________________
+\cleardoublepage
+\addcontentsline{toc}{chapter}{List of Figures}
+\listoffigures 	 %Abbildungsverzeichnis
+
+%________________________________________________________________________________
+
+
+%_____Literaturverzeichnis_______________________________________________________
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{Literature}
+\bibliographystyle{alphaurl}
+%________________________________________________________________________________
+
+
+%_____License____________________________________________________________________
+\cleardoublepage
+\chapter*{License}
+\markright{LICENSE}
+This work is licensed under the Creative Commons Attribution 3.0 Germany
+License. To view a copy of this license,
+visit \href{http://creativecommons.org/licenses/by/3.0/de/}{http://creativecommons.org} or send a letter
+to Creative Commons, 171 Second Street, Suite 300, San
+Francisco, California 94105, USA.
+%________________________________________________________________________________
+
+\end{document}
+\grid

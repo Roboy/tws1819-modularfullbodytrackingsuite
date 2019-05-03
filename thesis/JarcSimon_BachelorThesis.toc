@@ -1,0 +1,18 @@
+\contentsline {chapter}{\numberline {1}Introduction with Motivation}{5}{chapter.1}% 
+\contentsline {chapter}{\numberline {2}Theoretical Background}{7}{chapter.2}% 
+\contentsline {section}{\numberline {2.1}Linear Feedback Shift Register}{7}{section.2.1}% 
+\contentsline {section}{\numberline {2.2}Telecommunication Channel}{9}{section.2.2}% 
+\contentsline {section}{\numberline {2.3}ASIC from Triad Semiconductor TS4231}{9}{section.2.3}% 
+\contentsline {chapter}{\numberline {3}System Design}{11}{chapter.3}% 
+\contentsline {section}{\numberline {3.1}GitHub Discussions}{11}{section.3.1}% 
+\contentsline {section}{\numberline {3.2}Photodiode}{12}{section.3.2}% 
+\contentsline {section}{\numberline {3.3}Arduino MKR Vidor 4000}{12}{section.3.3}% 
+\contentsline {chapter}{\numberline {4}Implementation}{13}{chapter.4}% 
+\contentsline {section}{\numberline {4.1}Measurement of laser signals}{13}{section.4.1}% 
+\contentsline {section}{\numberline {4.2}Real-Time FPGA Detection}{16}{section.4.2}% 
+\contentsline {section}{\numberline {4.3}PCB Design}{17}{section.4.3}% 
+\contentsline {chapter}{\numberline {5}Results - split observation and interpretation}{21}{chapter.5}% 
+\contentsline {chapter}{\numberline {6}Discussion}{25}{chapter.6}% 
+\contentsline {chapter}{\numberline {7}Summary}{27}{chapter.7}% 
+\contentsline {chapter}{List of Figures}{29}{chapter.7}% 
+\contentsline {chapter}{Bibliography}{31}{chapter*.2}% 

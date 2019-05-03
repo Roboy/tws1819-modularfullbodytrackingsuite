@@ -1,0 +1,118 @@
+\begin{thebibliography}{HKSK20}
+
+\bibitem[.]{.}
+Coming up with a tracking algorithm.
+\newblock URL: \url{https://github.com/cnlohr/esptracker/issues/4}.
+
+\bibitem[.2019]{.2019}
+Base station 2.0 and controller 2.0, where are they?, 2019.
+\newblock URL:
+  \url{https://community.viveport.com/t5/General-Vive-Discussion/Base-Station-2-0-and-Controller-2-0-Where-are-they/td-p/27446}.
+
+\bibitem[.b]{.b}
+Let's try figuring out the data stream.
+\newblock URL: \url{https://github.com/cnlohr/esptracker/issues/1}.
+
+\bibitem[Bos13]{Bossert.2013}
+Martin Bossert.
+\newblock {\em Kanalcodierung}.
+\newblock {De Gruyter}, M{\"u}nchen, 3., {\"u}berarbeitete aufl. edition, 2013.
+\newblock URL:
+  \url{http://www.degruyter.com/search?f_0=isbnissn&q_0=9783486755169&searchTitles=true},
+  \href {http://dx.doi.org/10.1524/9783486755169}
+  {\path{doi:10.1524/9783486755169}}.
+
+\bibitem[.c]{.c}
+Lighthouse 2.0 command dump.
+\newblock URL: \url{https://github.com/cnlohr/esptracker/issues/3}.
+
+\bibitem[Cyp28]{CypressSemiconductorCorporation.20190428}
+Ez-usb fx3{\texttrademark} superspeed usb 3.0 peripheral controller,
+  2019-04-28.
+\newblock URL:
+  \url{https://www.cypress.com/products/ez-usb-fx3-superspeed-usb-30-peripheral-controller}.
+
+\bibitem[.d]{.d}
+Tearing down a vive lighthouse 2.0. - youtube.
+\newblock URL: \url{https://www.youtube.com/watch?v=JP5maGaumYo}.
+
+\bibitem[.e]{.e}
+Arduino mkr vidor 4000.
+\newblock URL: \url{https://store.arduino.cc/mkr-vidor-4000}.
+
+\bibitem[.f]{.f}
+Dslogic plus -- dreamsourcelab.
+\newblock URL: \url{https://www.dreamsourcelab.com/product/dslogic-plus/}.
+
+\bibitem[HKSK20]{Hagenauer.20170420}
+J.~Hagenauer, G.~Kramer, G.~S{\"o}der, and {K{\"o}tter R.}
+\newblock Skriptum zur vorlesung nachrichtentechnik 1.
+\newblock 2017-04-20.
+
+\bibitem[Int]{IntelCorporation.}
+Intel cyclone 10 lp~fpgas product table.
+\newblock URL:
+  \url{https://www.intel.de/content/dam/www/programmable/us/en/pdfs/literature/pt/cyclone-10-lp-product-table.pdf}.
+
+\bibitem[Int17]{IntelCorporation.2017}
+Intel cyclone 10 lp~device overview, 2017.
+\newblock URL:
+  \url{https://www.intel.de/content/dam/www/programmable/us/en/pdfs/literature/hb/cyclone-10/c10lp-51001.pdf}.
+
+\bibitem[Mic18]{MicrochipTechnologyInc..2018}
+Sam d21 family data sheet, 2018.
+\newblock URL:
+  \url{http://ww1.microchip.com/downloads/en/DeviceDoc/SAMD21-Family-DataSheet-DS40001882D.pdf}.
+
+\bibitem[MTT12]{Mishra.2016031120160312}
+Shivshankar Mishra, Ram~Racksha Tripathi, and Devendra~Kr. Tripathi.
+\newblock Implementation of configurable linear feedback shift register in
+  vhdl.
+\newblock In {\em 2016 International Conference on Emerging Trends in
+  Electrical Electronics {\&} Sustainable Energy Systems (ICETEESES)}, pages
+  342--346. IEEE, 2016-03-11 - 2016-03-12.
+\newblock \href {http://dx.doi.org/10.1109/ICETEESES.2016.7581406}
+  {\path{doi:10.1109/ICETEESES.2016.7581406}}.
+
+\bibitem[PP16]{Paar.2016}
+Christof Paar and Jan Pelzl.
+\newblock {\em Kryptografie verst{\"a}ndlich: Ein Lehrbuch f{\"u}r Studierende
+  und Anwender}.
+\newblock eXamen.press. {Springer Vieweg}, Berlin and Heidelberg, 2016.
+\newblock URL: \url{http://dx.doi.org/10.1007/978-3-662-49297-0}, \href
+  {http://dx.doi.org/10.1007/978-3-662-49297-0}
+  {\path{doi:10.1007/978-3-662-49297-0}}.
+
+\bibitem[Sei]{Seibel.}
+John Seibel.
+\newblock How to configure the ts4231 with arduino.
+\newblock URL:
+  \url{http://help.triadsemi.com/ts4231-light-to-digital-ic-with-data-output/how-to-configure-the-ts4231-with-arduino}.
+
+\bibitem[Tri16a]{TriadSemiconductor.2016}
+Ts4231 design guidelines, 2016.
+\newblock URL:
+  \url{https://www.triadsemi.com/wp-content/uploads/2017/06/TS4231-Design-Guidelines.pdf}.
+
+\bibitem[Tri16b]{TriadSemiconductor.2016b}
+Ts4231 light to digital converter product datasheet, 2016.
+\newblock URL:
+  \url{https://www.triadsemi.com/wp-content/uploads/2017/06/TS4231-Datasheet.pdf}.
+
+\bibitem[TSG16]{Tietze.2016}
+Ulrich Tietze, Christoph Schenk, and Eberhard Gamm.
+\newblock {\em Halbleiter-Schaltungstechnik}.
+\newblock {Springer Vieweg}, Berlin and Heidelberg, 15., {\"u}berarbeitete und
+  erweiterte auflage edition, 2016.
+
+\bibitem[Vis17]{VishayIntertechnology.2017}
+Bpw34, bpw34s, 2017.
+\newblock URL: \url{https://www.vishay.com/docs/81521/bpw34.pdf}.
+
+\bibitem[Wak06]{Wakerly.2006}
+John~F. Wakerly.
+\newblock {\em Digital design: Principles and practices}.
+\newblock {Pearson Prentice Hall}, Upper Saddle River, NJ, 4. ed. edition,
+  2006.
+
+\end{thebibliography}
